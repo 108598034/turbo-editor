@@ -126,14 +126,43 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "createDebugCoverageReport"
                        '**/*Test*.*',
                        'android/**/*.*']
 
-     classDirectories = files(["${project.buildDir}/intermediates/javac/debug/classes", "${project(":shared").buildDir}/intermediates/javac/debug/classes"])
+    classDirectories = files(["${project.buildDir}/intermediates/javac/debug/classes", "${project(":shared").buildDir}/intermediates/javac/debug/classes/shared"])
 
-     sourceDirectories = files(["${project.projectDir}/src/main/java", "${project(":shared").projectDir}/src/main/java"])
-     executionData = fileTree(dir: "${project.buildDir}", includes: ["**/*.ec"])
+    sourceDirectories = files(["${project.projectDir}/src/main/java", "${project(":shared").projectDir}/src/main/java/shared"])
+    executionData = fileTree(dir: "${project.buildDir}", includes: ["**/*.ec"])
 
-                              afterEvaluate {
-                                  classDirectories = files( classDirectories.files.collect {
-                                      fileTree(dir: it, exclude: classFilter)
-                                  })
-                              }
+    afterEvaluate {
+        classDirectories = files( classDirectories.files.collect {
+            fileTree(dir: it, exclude: classFilter)
+        })
+    }
+}
+
+
+task jacocoTestReportEC(type: JacocoReport) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports."
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+
+    def classFilter = ['**/R.class',
+                       '**/R$*.class',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*',
+                       '**/*Test*.*',
+                       'android/**/*.*']
+
+    classDirectories = files(["${project.buildDir}/intermediates/javac/debug/classes", "${project(":shared").buildDir}/intermediates/javac/debug/classes/shared"])
+
+    sourceDirectories = files(["${project.projectDir}/src/main/java", "${project(":shared").projectDir}/src/main/java/shared"])
+    executionData = fileTree(dir: "${project.buildDir}", includes: ["**/*.ec"])
+
+    afterEvaluate {
+        classDirectories = files( classDirectories.files.collect {
+            fileTree(dir: it, exclude: classFilter)
+        })
+    }
 }

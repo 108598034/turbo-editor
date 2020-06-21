@@ -45,6 +45,7 @@ import androidx.lifecycle.ViewModelProviders
 
 import android.text.InputType
 import android.text.TextUtils
+import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -1212,11 +1213,14 @@ abstract class MainActivity : AppCompatActivity(), IHomeActivity, FindTextDialog
 
         if (Device.hasKitKatApi() && TextUtils.isEmpty(viewModel!!.greatUri!!.filePath)) {
             var newUri: Uri? = null
-            try {
+            newUri = try {
                 DocumentsContract.renameDocument(contentResolver, viewModel!!.greatUri!!.uri!!, result)
             } catch (e: FileNotFoundException) {
-                newUri = null
+                null
             }
+
+
+            Log.d("EEEEEEEEES", newUri.toString())
 
             // if everything is ok
             if (newUri != null) {
