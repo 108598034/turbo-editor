@@ -126,9 +126,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "createDebugCoverageReport"
                        '**/*Test*.*',
                        'android/**/*.*']
 
-    classDirectories = files(["${project.buildDir}/intermediates/javac/debug/classes", "${project(":shared").buildDir}/intermediates/javac/debug/classes/shared"])
+    classDirectories = files(["${project.buildDir}/intermediates/javac/debug/classes", "${project(":shared").buildDir}/intermediates/javac/debug/classes/shared", "${project(":shared").buildDir}/tmp/kotlin-classes/debug"])
 
-    sourceDirectories = files(["${project.projectDir}/src/main/java", "${project(":shared").projectDir}/src/main/java/shared"])
+    sourceDirectories = files(["${project.projectDir}/src/main/java", "${project(":shared").projectDir}/src/main/java"])
     executionData = fileTree(dir: "${project.buildDir}", includes: ["**/*.ec"])
 
     afterEvaluate {
@@ -155,9 +155,9 @@ task jacocoTestReportEC(type: JacocoReport) {
                        '**/*Test*.*',
                        'android/**/*.*']
 
-    classDirectories = files(["${project.buildDir}/intermediates/javac/debug/classes", "${project(":shared").buildDir}/intermediates/javac/debug/classes/shared"])
+    classDirectories = files(["${project.buildDir}/intermediates/javac/debug/classes", "${project(":shared").buildDir}/intermediates/javac/debug/classes/shared", "${project(":shared").buildDir}/tmp/kotlin-classes/debug"])
 
-    sourceDirectories = files(["${project.projectDir}/src/main/java", "${project(":shared").projectDir}/src/main/java/shared"])
+    sourceDirectories = files(["${project.projectDir}/src/main/java", "${project(":shared").projectDir}/src/main/java"])
     executionData = fileTree(dir: "${project.buildDir}", includes: ["**/*.ec"])
 
     afterEvaluate {
