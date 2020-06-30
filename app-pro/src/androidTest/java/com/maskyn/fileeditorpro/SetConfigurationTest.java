@@ -9,6 +9,7 @@ import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Description;
@@ -41,6 +42,10 @@ public class SetConfigurationTest {
     @Rule
     public ActivityTestRule<HomeActivity> mActivityTestRule = new ActivityTestRule<>(HomeActivity.class);
 
+    @Rule
+    public GrantPermissionRule mGrantPermissionRule =
+            GrantPermissionRule.grant(
+                    "android.permission.WRITE_EXTERNAL_STORAGE");
     @Test
     public void setConfigurationTest() {
         ViewInteraction appCompatTextView = onView(
@@ -238,10 +243,11 @@ public class SetConfigurationTest {
                         childAtPosition(
                                 withClassName(is("android.widget.LinearLayout")),
                                 0)))
-                .atPosition(2);
+                .atPosition(1);
+        appCompatCheckedTextView.check(matches(isNotChecked()));
         appCompatCheckedTextView.perform(click());
 
-        ViewInteraction appCompatTextView6 = onView(
+        ViewInteraction appCompatTextView5_1 = onView(
                 allOf(withId(R.id.drawer_button_theme), withText("Theme"),
                         childAtPosition(
                                 allOf(withId(R.id.other_options),
@@ -249,15 +255,35 @@ public class SetConfigurationTest {
                                                 withId(R.id.drawer_buttons),
                                                 8)),
                                 0)));
-        appCompatTextView6.perform(scrollTo(), click());
+        appCompatTextView5_1.perform(scrollTo(), click());
 
-        DataInteraction appCompatCheckedTextView2 = onData(anything())
+        DataInteraction appCompatCheckedTextView1_1 = onData(anything())
+                .inAdapterView(allOf(withId(android.R.id.list),
+                        childAtPosition(
+                                withClassName(is("android.widget.LinearLayout")),
+                                0)))
+                .atPosition(2);
+        appCompatCheckedTextView1_1.check(matches(isNotChecked()));
+        appCompatCheckedTextView1_1.perform(click());
+
+        ViewInteraction appCompatTextView5_2 = onView(
+                allOf(withId(R.id.drawer_button_theme), withText("Theme"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                0)));
+        appCompatTextView5_2.perform(scrollTo(), click());
+
+        DataInteraction appCompatCheckedTextView1_2 = onData(anything())
                 .inAdapterView(allOf(withId(android.R.id.list),
                         childAtPosition(
                                 withClassName(is("android.widget.LinearLayout")),
                                 0)))
                 .atPosition(0);
-        appCompatCheckedTextView2.perform(click());
+        appCompatCheckedTextView1_2.check(matches(isNotChecked()));
+        appCompatCheckedTextView1_2.perform(click());
 
         ViewInteraction switchCompat11 = onView(
                 allOf(withId(R.id.switch_accessory_view), withText("Accessory view"),
@@ -283,6 +309,240 @@ public class SetConfigurationTest {
         switchCompat12.check(matches(isNotChecked()));
         switchCompat12.perform(scrollTo(), click());
         switchCompat12.check(matches(isChecked()));
+
+
+        ViewInteraction switchCompat13 = onView(
+                allOf(withId(R.id.switch_storage_access_framework), withText("Use the Storage Access Framework"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                2)));
+
+        switchCompat13.check(matches(isChecked()));
+        switchCompat13.perform(scrollTo(), click());
+        switchCompat13.check(matches(isNotChecked()));
+
+
+        ViewInteraction switchCompat14 = onView(
+                allOf(withId(R.id.switch_storage_access_framework), withText("Use the Storage Access Framework"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                2)));
+
+        switchCompat14.check(matches(isNotChecked()));
+        switchCompat14.perform(scrollTo(), click());
+        switchCompat14.check(matches(isChecked()));
+
+        ViewInteraction switchCompat15 = onView(
+                allOf(withId(R.id.switch_suggestions_active), withText("Keyboard suggestions and Swipe"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                3)));
+
+        switchCompat15.check(matches(isNotChecked()));
+        switchCompat15.perform(scrollTo(), click());
+        switchCompat15.check(matches(isChecked()));
+
+        ViewInteraction switchCompat16 = onView(
+                allOf(withId(R.id.switch_suggestions_active), withText("Keyboard suggestions and Swipe"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                3)));
+
+        switchCompat16.check(matches(isChecked()));
+        switchCompat16.perform(scrollTo(), click());
+        switchCompat16.check(matches(isNotChecked()));
+
+        ViewInteraction switchCompat17 = onView(
+                allOf(withId(R.id.switch_auto_save), withText("Auto save"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                4)));
+
+        switchCompat17.check(matches(isNotChecked()));
+        switchCompat17.perform(scrollTo(), click());
+        switchCompat17.check(matches(isChecked()));
+
+        ViewInteraction switchCompat18 = onView(
+                allOf(withId(R.id.switch_auto_save), withText("Auto save"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                4)));
+
+        switchCompat18.check(matches(isChecked()));
+        switchCompat18.perform(scrollTo(), click());
+        switchCompat18.check(matches(isNotChecked()));
+
+        ViewInteraction appCompatTextView6 = onView(
+                allOf(withId(R.id.drawer_button_encoding), withText("Encoding"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                5)));
+        appCompatTextView6.perform(scrollTo(), click());
+
+        DataInteraction appCompatCheckedTextView4 = onData(anything())
+                .inAdapterView(allOf(withId(android.R.id.list),
+                        childAtPosition(
+                                withClassName(is("android.widget.LinearLayout")),
+                                1)))
+                .atPosition(0);
+        appCompatCheckedTextView4.check(matches(isNotChecked()));
+        appCompatCheckedTextView4.perform(click());
+
+        ViewInteraction appCompatTextView7 = onView(
+                allOf(withId(R.id.drawer_button_encoding), withText("Encoding"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                5)));
+        appCompatTextView7.perform(scrollTo(), click());
+
+        DataInteraction appCompatCheckedTextView5 = onData(anything())
+                .inAdapterView(allOf(withId(android.R.id.list),
+                        childAtPosition(
+                                withClassName(is("android.widget.LinearLayout")),
+                                1)))
+                .atPosition(1);
+        appCompatCheckedTextView5.check(matches(isNotChecked()));
+        appCompatCheckedTextView5.perform(click());
+
+        ViewInteraction appCompatTextView8 = onView(
+                allOf(withId(R.id.drawer_button_encoding), withText("Encoding"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                5)));
+        appCompatTextView8.perform(scrollTo(), click());
+
+        DataInteraction appCompatCheckedTextView6 = onData(anything())
+                .inAdapterView(allOf(withId(android.R.id.list),
+                        childAtPosition(
+                                withClassName(is("android.widget.LinearLayout")),
+                                1)))
+                .atPosition(21);
+        appCompatCheckedTextView6.check(matches(isNotChecked()));
+        appCompatCheckedTextView6.perform(click());
+
+        ViewInteraction appCompatTextView9 = onView(
+                allOf(withId(R.id.drawer_button_encoding), withText("Encoding"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                5)));
+        appCompatTextView9.perform(scrollTo(), click());
+
+        DataInteraction appCompatCheckedTextView7 = onData(anything())
+                .inAdapterView(allOf(withId(android.R.id.list),
+                        childAtPosition(
+                                withClassName(is("android.widget.LinearLayout")),
+                                1)))
+                .atPosition(21);
+        appCompatCheckedTextView7.check(matches(isChecked()));
+        appCompatCheckedTextView7.perform(click());
+
+        ViewInteraction switchCompat21 = onView(
+                allOf(withId(R.id.switch_ignore_backbutton), withText("Ignore back button"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                6)));
+
+        switchCompat21.check(matches(isNotChecked()));
+        switchCompat21.perform(scrollTo(), click());
+        switchCompat21.check(matches(isChecked()));
+
+        ViewInteraction switchCompat22 = onView(
+                allOf(withId(R.id.switch_ignore_backbutton), withText("Ignore back button"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                6)));
+
+        switchCompat22.check(matches(isChecked()));
+        switchCompat22.perform(scrollTo(), click());
+        switchCompat22.check(matches(isNotChecked()));
+
+        ViewInteraction switchCompat23 = onView(
+                allOf(withId(R.id.switch_page_system), withText("Split the text if too long"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                7)));
+
+        switchCompat23.check(matches(isChecked()));
+        switchCompat23.perform(scrollTo(), click());
+        switchCompat23.check(matches(isNotChecked()));
+
+        ViewInteraction switchCompat24 = onView(
+                allOf(withId(R.id.switch_page_system), withText("Split the text if too long"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                7)));
+
+        switchCompat24.check(matches(isNotChecked()));
+        switchCompat24.perform(scrollTo(), click());
+        switchCompat24.check(matches(isChecked()));
+
+        ViewInteraction switchCompat25 = onView(
+                allOf(withId(R.id.switch_send_error_reports), withText("Send error reports"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                8)));
+
+        switchCompat25.check(matches(isChecked()));
+        switchCompat25.perform(scrollTo(), click());
+        switchCompat25.check(matches(isNotChecked()));
+
+        ViewInteraction switchCompat26 = onView(
+                allOf(withId(R.id.switch_send_error_reports), withText("Send error reports"),
+                        childAtPosition(
+                                allOf(withId(R.id.other_options),
+                                        childAtPosition(
+                                                withId(R.id.drawer_buttons),
+                                                8)),
+                                8)));
+
+        switchCompat26.check(matches(isNotChecked()));
+        switchCompat26.perform(scrollTo(), click());
+        switchCompat26.check(matches(isChecked()));
     }
 
     private static Matcher<View> childAtPosition(
